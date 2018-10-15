@@ -1,0 +1,16 @@
+Metadata-Version: 1.1
+Name: openrec
+Version: 0.2.1
+Summary: An open-source and modular library for neural network-inspired recommendation algorithms
+Home-page: http://openrec.ai
+Author: Longqi Yang
+Author-email: ylongqi@cs.cornell.edu
+License: Apache 2.0
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence

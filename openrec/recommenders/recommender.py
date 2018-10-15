@@ -2,6 +2,8 @@ import tensorflow as tf
 import numpy as np
 import os    
     
+DIRECTORY_TO_WRITE_SUMMARY = "/Users/kay/recboard/model_summaries"
+
 class _RecommenderGraph(object):
 
     class _SubGraph(object):
@@ -37,6 +39,8 @@ class _RecommenderGraph(object):
             self._build_funcs = []
             self._build_mode = False
             self._is_built = False
+            
+            print("Writing summaries to: =",DIRECTORY_TO_WRITE_SUMMARY)
             
         def __getitem__(self, key):
             
@@ -482,6 +486,7 @@ class Recommender(object):
                 config = tf.ConfigProto()
                 config.gpu_options.allow_growth=True
                 self._tf_train_sess = tf.Session(config=config)
+                train_writer = tf.summary.FileWriter(DIRECTORY_TO_WRITE_SUMMARY, self.traingraph._tf_graph)
                 self._tf_train_sess.run(tf.global_variables_initializer())
                 self._tf_train_saver = tf.train.Saver(tf.global_variables(), max_to_keep=10)
 
