@@ -1,8 +1,8 @@
 import tensorflow as tf
 import numpy as np
 import os    
-    
-DIRECTORY_TO_WRITE_SUMMARY = os.environ['RBROOT']+"/model_summaries"
+# TODO KS    
+# DIRECTORY_TO_WRITE_SUMMARY = os.environ['RBROOT']+"/model_summaries"
 
 class _RecommenderGraph(object):
 
@@ -40,7 +40,7 @@ class _RecommenderGraph(object):
             self._build_mode = False
             self._is_built = False
             
-            print("Writing summaries to: =",DIRECTORY_TO_WRITE_SUMMARY)
+            # print("Writing summaries to: =",DIRECTORY_TO_WRITE_SUMMARY)
             
         def __getitem__(self, key):
             
@@ -239,7 +239,8 @@ class _RecommenderGraph(object):
 
         self._loss_identifier_set.add(identifier)
         tf.add_to_collection('openrec.recommender.losses.'+identifier, loss)
-        tf.summary.scalar('loss', loss)
+        # TODO KS    
+        # tf.summary.scalar('loss', loss)
 
     def register_output(self, output, identifier='default'):
         
@@ -316,8 +317,8 @@ class Recommender(object):
 
         self.T = self.traingraph
         self.S = self.servegraph
-
-        self.i = 0
+        # TODO KS 
+        # self.i = 0
     
     def _generate_feed_dict(self, batch_data, input_map):
 
@@ -360,10 +361,14 @@ class Recommender(object):
         else:
             outputs = self.T.get_outputs(outputs_id)
         
-        summary, results = self._tf_train_sess.run([self.merged,operations+losses+outputs],
+        # TODO KS    
+        # summary, results = self._tf_train_sess.run([self.merged,operations+losses+outputs],
+        #                          feed_dict=feed_dict)
+        # self.train_writer.add_summary(summary, self.i)
+        # self.i += 1
+        results = self._tf_train_sess.run(operations+losses+outputs,
                                  feed_dict=feed_dict)
-        self.train_writer.add_summary(summary, self.i)
-        self.i += 1
+
 
         return_dict = {'losses': results[len(operations):len(operations)+len(losses)],
                       'outputs': results[-len(outputs):]}
@@ -491,8 +496,9 @@ class Recommender(object):
                 config = tf.ConfigProto()
                 config.gpu_options.allow_growth=True
                 self._tf_train_sess = tf.Session(config=config)
-                self.merged = tf.summary.merge_all()
-                self.train_writer = tf.summary.FileWriter(DIRECTORY_TO_WRITE_SUMMARY, self.traingraph._tf_graph)
+                # TODO KS    
+                # self.merged = tf.summary.merge_all()
+                # self.train_writer = tf.summary.FileWriter(DIRECTORY_TO_WRITE_SUMMARY+'/train', self.traingraph._tf_graph)
                 self._tf_train_sess.run(tf.global_variables_initializer())
                 self._tf_train_saver = tf.train.Saver(tf.global_variables(), max_to_keep=10)
 
