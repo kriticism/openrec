@@ -79,7 +79,7 @@ class ModelTrainer(object):
             print('..Trained for %d iterations.' % _iter, end='\r')
             if (_iter + 1) % save_iter == 0:
                 self._model.save(global_step=self._trained_it)
-                train_summary.value.add(tag="training_loss", simple_value = loss)
+                train_summary.value.add(tag="Training loss", simple_value = loss)
                 self.train_summary_writer.add_summary(train_summary, _iter)
                 print(' '*len('..Trained for %d iterations.' % _iter), end='\r')
                 print(colored('[iter %d]' % self._trained_it, 'red'), 'Model saved.')
