@@ -93,9 +93,12 @@ class ModelTrainer(object):
                     for key, result in eval_results.items():
                         average_result = np.mean(result, axis=0)
                         if type(average_result) is np.ndarray:
-                            print(colored('..(dataset: %s)' % sampler.name, 'green'), \
+                            print(colored('..( arr, dataset: %s)' % sampler.name, 'green'), \
                                 key, ' '.join([str(s) for s in average_result]))
-                            print("Oh no, its an array...")
+                            print("Got an array, printing first value from it...") # TODO: KS handle multiple values that are in this array
+                            if len(average_result) > 0:
+                                eval_summary.value.add(tag=str(sampler.name)+" "+str(key), simple_value = average_result[0])
+                                self.eval_summary_writer.add_summary(eval_summary, _iter+1)
                         else:
                             print(colored('..(dataset: %s)' % sampler.name, 'green'), \
                                 key, average_result)
